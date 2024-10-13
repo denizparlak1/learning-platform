@@ -46,5 +46,6 @@ class SecurityUtils:
             if email is None or role is None:
                 raise credentials_exception
             return {"email": email, "role": role}
-        except JWTError:
+        except JWTError as e:
             raise credentials_exception
+
