@@ -1,16 +1,8 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import ConnectionFailure
-from fastapi import Depends
 import logging
-from pydantic_settings import BaseSettings
+from config.enviroment.env_config import settings
 
-# Config class for database settings
-class Settings(BaseSettings):
-    MONGO_DB_URL: str
-    MONGO_DB_NAME: str
-
-    class Config:
-        env_file = ".env"
 
 # Singleton MongoDB Client
 class MongoDBClient:
@@ -19,7 +11,6 @@ class MongoDBClient:
     @classmethod
     async def get_client(cls) -> AsyncIOMotorClient:
         if cls._client is None:
-            settings = Settings()
             try:
                 cls._client = AsyncIOMotorClient(settings.MONGO_DB_URL)
                 # Check the connection
@@ -33,7 +24,6 @@ class MongoDBClient:
     @classmethod
     async def get_database(cls):
         client = await cls.get_client()
-        settings = Settings()
         return client[settings.MONGO_DB_NAME]
 
 # Dependency for FastAPI routes
