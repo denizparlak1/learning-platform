@@ -7,6 +7,7 @@ from core.validation.custom_validation import PyObjectId
 # Model for the stored organization in the database
 class Organization(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    organization_id: str
     organization_name: str
     description: str
     country: str

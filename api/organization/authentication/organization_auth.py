@@ -48,8 +48,13 @@ async def create_user(
         db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     user_repo = OrganizationUserRepository(db)
+    auth_repo = OrganizationAuthRepository(db)
     mail_service = PostmarkService()
     service = OrganizationUserService(user_repo, mail_service)
+
+    organization_id = await auth_repo.get_organization_id_by_user_id(current_user["_id"])
+
+    user_info.organization_id = organization_id
 
     result = await service.create_user(user_info)
     return {"user_id": result["user_id"]}

@@ -22,21 +22,27 @@ class OrganizationAuthService:
 
     async def create_organization_and_admin(self, org_info: OrganizationInfo, admin_info: OrganizationAdminCreate):
         """Create an organization and its admin."""
-        # Insert organization data
-        org_id = await self.org_repo.create_organization(org_info)
+        # Generate unique organization_id and assign it to both organization and admin
+        org_id = org_info.organization_id  # UUID is generated in OrganizationInfo by default
+
+        # Insert organization data with the unique organization_id
+        await self.org_repo.create_organization(org_info)
 
         # Generate a password for the organization admin
         admin_info.password = self.generate_password()
+        print(admin_info.password)
         admin_info.password = SecurityUtils.hash_password(admin_info.password)
 
-        # Ensure to set the organization name and role
-        admin_info.organization_name = org_info.organization_name  # Assuming org_info has a 'name' field
-        admin_info.role = "organization_admin"  # Ensure role is set
+        # Assign the same organization_id to the admin user
+        admin_info.organization_id = org_id
+        admin_info.organization_name = org_info.organization_name
+        admin_info.role = "organization_admin"
 
+        # Create admin in the database
         await self.admin_repo.create_admin(admin_info)
 
         return {
-            "organization_id": org_id,
+            "organization_id": org_id,  # Return unique organization_id
         }
 
     async def login_organization_user(self, email: str, password: str):

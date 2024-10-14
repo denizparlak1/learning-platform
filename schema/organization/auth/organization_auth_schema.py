@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from typing import Optional
 
@@ -5,6 +6,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 
 class OrganizationInfo(BaseModel):
+    organization_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     organization_name: str
     description: str
     country: str
@@ -21,6 +23,7 @@ class OrganizationAdminCreate(BaseModel):
     email: EmailStr
     password: str = None
     role: str = "organization_admin"
+    organization_id: str = None
 
 
 class OrganizationLoginSchema(BaseModel):

@@ -47,4 +47,3 @@ class OrganizationUserService:
         return {
             "user_id": user_id,
         }
-
