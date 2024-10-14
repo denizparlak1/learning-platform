@@ -43,9 +43,10 @@ class SecurityUtils:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
             email: str = payload.get("sub")
             role: str = payload.get("role")
+            user_id: str = payload.get("_id")
             if email is None or role is None:
                 raise credentials_exception
-            return {"email": email, "role": role}
+            return {"email": email, "role": role, "_id": user_id}
         except JWTError as e:
             raise credentials_exception
 

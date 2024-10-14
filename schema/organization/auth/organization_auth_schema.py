@@ -34,3 +34,10 @@ class OrganizationUserCreate(BaseModel):
     organization_name: str
     password: Optional[str] = None
     role: str = "organization_user"
+
+class UpdateOrganizationAdminPasswordRequest(BaseModel):
+    current_password: str
+    new_password: str
+
+class OrganizationResetPasswordRequest(BaseModel):
+    email: EmailStr

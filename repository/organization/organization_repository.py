@@ -1,3 +1,4 @@
+import bson
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
 from schema.organization.auth.organization_auth_schema import OrganizationInfo, OrganizationAdminCreate, \
@@ -21,6 +22,12 @@ class OrganizationAuthRepository:
 
     async def get_user_by_email(self, email: str):
         return await self.collection.find_one({"email": email})
+
+    async def get_user_by_id(self, user_id: str):
+        return await self.collection.find_one({"_id": bson.ObjectId(user_id)})
+
+    async def update_password(self, user_id: str, hashed_password: str):
+        await self.collection.update_one({"_id": user_id}, {"$set": {"password": hashed_password}})
 
 
 class OrganizationUserRepository:
