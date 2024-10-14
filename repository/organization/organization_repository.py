@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from schema.organization.auth.organization_auth_schema import OrganizationInfo, OrganizationAdminCreate
+from schema.organization.auth.organization_auth_schema import OrganizationInfo, OrganizationAdminCreate, \
+    OrganizationUserCreate
 
 
 class OrganizationRepository:
@@ -20,3 +21,13 @@ class OrganizationAuthRepository:
 
     async def get_user_by_email(self, email: str):
         return await self.collection.find_one({"email": email})
+
+
+class OrganizationUserRepository:
+    def __init__(self, db: AsyncIOMotorDatabase):
+        self.collection = db["organization-users-auth"]
+
+    async def create_user(self, user_info: OrganizationUserCreate):
+        user_data = user_info.dict()
+        result = await self.collection.insert_one(user_data)
+        return str(result.inserted_id)

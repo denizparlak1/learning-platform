@@ -26,3 +26,11 @@ class OrganizationAdminCreate(BaseModel):
 class OrganizationLoginSchema(BaseModel):
     email: str
     password: str
+
+class OrganizationUserCreate(BaseModel):
+    email: EmailStr
+    name: str
+    organization_id: str
+    organization_name: str
+    password: Optional[str] = None
+    role: str = "organization_user"

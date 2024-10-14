@@ -1,9 +1,7 @@
 import random
 import string
 from datetime import timedelta
-
 from fastapi import HTTPException
-
 from core.security.security import SecurityUtils
 from repository.organization.organization_repository import OrganizationRepository, OrganizationAuthRepository
 from schema.organization.auth.organization_auth_schema import OrganizationInfo, OrganizationAdminCreate
