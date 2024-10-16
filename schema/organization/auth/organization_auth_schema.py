@@ -16,6 +16,7 @@ class OrganizationInfo(BaseModel):
     subscription_date: datetime = Field(default_factory=datetime.utcnow)
     organization_admin_name: str
     organization_email: EmailStr
+    is_active: bool = True
 
 class OrganizationAdminCreate(BaseModel):
     name: str
@@ -24,6 +25,8 @@ class OrganizationAdminCreate(BaseModel):
     password: str = None
     role: str = "organization_admin"
     organization_id: str = None
+    is_active: bool = True
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
 
 
 class OrganizationLoginSchema(BaseModel):
@@ -36,7 +39,10 @@ class OrganizationUserCreate(BaseModel):
     organization_id: str
     organization_name: str
     password: Optional[str] = None
+    is_active: bool = True
     role: str = "organization_user"
+    created_at: datetime = datetime.now()
+    updated_at: datetime = datetime.now()
 
 class UpdateOrganizationAdminPasswordRequest(BaseModel):
     current_password: str

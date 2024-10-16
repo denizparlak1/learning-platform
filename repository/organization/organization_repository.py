@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Optional
 
 import bson
+from bson import ObjectId
 from fastapi import HTTPException
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
@@ -16,6 +17,9 @@ class OrganizationRepository:
     async def create_organization(self, organization_data: OrganizationInfo):
         result = await self.collection.insert_one(organization_data.dict())
         return str(result.inserted_id)
+
+    async def get_organization_by_id(self, organization_id: str) -> Optional[dict]:
+        return await self.collection.find_one({"organization_id": organization_id})
 
     async def update_organization(self, organization_id: str, updates: dict):
         # Update only the fields that are not None
@@ -61,3 +65,15 @@ class OrganizationUserRepository:
         user_data = user_info.dict()
         result = await self.collection.insert_one(user_data)
         return str(result.inserted_id)
+
+    async def get_users_by_organization_id(self, organization_id: str):
+        users = await self.collection.find({"organization_id": organization_id}, {"_id": 1, "name": 1, "email": 1, "is_active":1, "created_at":1, "updated_at": 1}).to_list(length=None)
+        return users
+
+    async def update_user_status(self, user_id: str, is_active: bool):
+        """Update the user's active status."""
+        result = await self.collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": {"is_active": is_active, "updated_at": datetime.utcnow()}}
+        )
+        return result

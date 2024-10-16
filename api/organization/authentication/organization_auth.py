@@ -25,7 +25,6 @@ async def create_organization_api(
     admin_repo = OrganizationAuthRepository(db)
     service = OrganizationAuthService(org_repo, admin_repo)
     result = await service.create_organization_and_admin(organization_info, admin_info)
-
     return {"organization_id": result["organization_id"]}
 
 @router.post("/sign-in")
