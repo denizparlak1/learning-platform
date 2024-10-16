@@ -9,3 +9,10 @@ class SignupRequest(BaseModel):
 class SigninRequest(BaseModel):
     email: EmailStr
     password: str
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+
+class UpdateAdminPasswordRequest(BaseModel):
+    current_password: str
+    new_password: str
