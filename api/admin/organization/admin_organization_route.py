@@ -1,18 +1,12 @@
 from typing import List
-
 from fastapi import APIRouter, Depends, Body
 from motor.motor_asyncio import AsyncIOMotorDatabase
-
 from core.security.dependencies import permission_required, get_current_active_user
 from db.mongo.connection.mongo_connection import get_database
 from model.organization.info.organization_info_model import Organization
 from repository.admin.organization.info.admin_organization_info import AdminOrganizationRepository
-from repository.organization.organization_repository import OrganizationRepository, OrganizationAuthRepository
 from schema.admin.info.admin_organizations_info import AdminOrganizationUserCount
-from schema.organization.auth.organization_auth_schema import OrganizationInfo
 from service.admin.organization.info.admin_organization_service import AdminOrganizationService
-from service.organization.auth.organization_auth.organization_auth_service import OrganizationAuthService
-from service.organization.info.organization_info_service import OrganizationInfoService
 
 router = APIRouter()
 

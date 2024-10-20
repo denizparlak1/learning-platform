@@ -6,7 +6,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 from core.security.dependencies import get_current_active_user, permission_required
 from db.mongo.connection.mongo_connection import get_database
 from model.organization.info.organization_info_model import Organization
-from repository.organization.organization_repository import OrganizationRepository, OrganizationAuthRepository, \
+from repository.organization.common.organization_repository import OrganizationRepository, OrganizationAuthRepository, \
     OrganizationUserRepository
 from schema.organization.info.organization_info_schema import OrganizationUpdate, OrganizationUserInfoResponse, \
     UpdateUserStatusRequest
@@ -45,6 +45,7 @@ async def get_organization_info(
 
 
 @router.get("/users/", response_model=List[OrganizationUserInfoResponse])
+
 async def get_organization_users(
         current_user: dict = Depends(get_current_active_user),
         db: AsyncIOMotorDatabase = Depends(get_database)

@@ -1,12 +1,12 @@
 import random
 import string
-from datetime import timedelta, datetime
+from datetime import timedelta
 from fastapi import HTTPException
 
 from config.enviroment.env_config import settings
 from core.security.security import SecurityUtils
 from mail.service.postmark_service import PostmarkService
-from repository.organization.organization_repository import OrganizationRepository, OrganizationAuthRepository
+from repository.organization.common.organization_repository import OrganizationRepository, OrganizationAuthRepository
 from schema.organization.auth.organization_auth_schema import OrganizationInfo, OrganizationAdminCreate
 
 class OrganizationAuthService:
