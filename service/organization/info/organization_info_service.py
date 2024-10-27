@@ -1,8 +1,6 @@
-from datetime import datetime
-
 from fastapi import HTTPException
 
-from repository.organization.organization_repository import OrganizationRepository
+from repository.organization.common.organization_repository import OrganizationRepository
 from schema.organization.info.organization_info_schema import OrganizationUpdate
 
 

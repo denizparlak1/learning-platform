@@ -4,7 +4,7 @@ import random
 from config.enviroment.env_config import settings
 from core.security.security import SecurityUtils
 from mail.service.postmark_service import PostmarkService
-from repository.organization.organization_repository import OrganizationUserRepository
+from repository.organization.common.organization_repository import OrganizationUserRepository
 from schema.organization.auth.organization_auth_schema import OrganizationUserCreate
 
 

@@ -1,0 +1,28 @@
+services:
+  fastapi:
+    build: .
+    container_name: fastapi_app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - celery_worker
+
+  redis:
+    image: redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    build: .
+    container_name: celery_worker
+    command: celery -A config.celery.celery_config.celery_app worker --loglevel=DEBUG
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
