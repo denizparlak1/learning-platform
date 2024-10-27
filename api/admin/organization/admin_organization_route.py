@@ -2,7 +2,7 @@ from typing import List
 from fastapi import APIRouter, Depends, Body
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from core.security.dependencies import permission_required, get_current_active_user
-from db.mongo.connection.mongo_connection import get_database
+from db.mongo.async_connection.connection.mongo_connection import get_database
 from model.organization.info.organization_info_model import Organization
 from repository.admin.organization.info.admin_organization_info import AdminOrganizationRepository
 from schema.admin.info.admin_organizations_info import AdminOrganizationUserCount

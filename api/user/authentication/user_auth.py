@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
 from core.security.dependencies import get_current_active_user
-from db.mongo.connection.mongo_connection import get_database
+from db.mongo.async_connection.connection.mongo_connection import get_database
 from mail.service.postmark_service import PostmarkService, get_postmark_service
 from repository.user.auth.user_auth_repository import UserAuthRepository
 from schema.user.auth.user_auth_schema import UserSigninRequest, ResetPasswordRequest, UpdatePasswordRequest

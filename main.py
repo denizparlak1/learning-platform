@@ -5,8 +5,6 @@ from api.organization.authentication import organization_auth
 from api.organization.content import content_route
 from api.organization.info import organization_info_route
 from api.user.authentication import user_auth
-from  db.mongo.connection.mongo_connection import  get_database
-
 app = FastAPI()
 
 app.include_router(admin_auth.router, prefix="/api/admin/authentication",tags=["Admin Authentication"])

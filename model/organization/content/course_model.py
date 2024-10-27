@@ -31,11 +31,13 @@ class Course(BaseModel):
 
 class Video(BaseModel):
     id: Annotated[ObjectId, ObjectIdPydanticAnnotation] = Field(alias='_id')
-    video_id: Annotated[ObjectId, ObjectIdPydanticAnnotation] = Field(alias='video_id')
-    title: str
+    organization_id: str
+    course_id: str
+    section_id: str
+    is_public:bool
+    title: Optional[str] = None
     description: Optional[str] = None
-    file_url: str
-    section_id: ObjectId
+    file_path: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
